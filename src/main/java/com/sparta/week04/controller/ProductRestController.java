@@ -2,10 +2,10 @@ package com.sparta.week04.controller;
 
 import com.sparta.week04.models.Product;
 import com.sparta.week04.models.ProductRepository;
+import com.sparta.week04.models.ProductRequestDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,9 +15,15 @@ public class ProductRestController {
 
    private final ProductRepository productRepository;
 
-    @GetMapping("/api/products")
-//    public 반환형 메소드명(재료){}
+    @GetMapping("/api/products") //이 주소로 들어왔을 때 실행 되어야할 메소드는 아래와 같음
+//   메소드 형태:  public 반환형 메소드명(재료){}
     public List<Product> readProducts(){
         return productRepository.findAll();
+    }
+
+    @PostMapping("/api/products")
+    public Product createProduct(@RequestBody ProductRequestDto requestDto){
+        Product product = new Product(requestDto);
+        productRepository.save(product);
     }
 }
