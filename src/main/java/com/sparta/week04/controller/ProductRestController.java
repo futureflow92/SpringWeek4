@@ -24,6 +24,6 @@ public class ProductRestController {
     @PostMapping("/api/products")
     public Product createProduct(@RequestBody ProductRequestDto requestDto){
         Product product = new Product(requestDto);
-        productRepository.save(product);
+        return productRepository.save(product);
     }
 }
